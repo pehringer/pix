@@ -76,8 +76,8 @@ void pix_Display(pix_t *p) {
     	printf("\033[48;2;%d;%d;%dm", bg[0], bg[1], bg[2]);
         // Print upper half block.
         printf("\u2580");
-	fg += 3;
-	bg += 3;
+        fg += 3;
+        bg += 3;
         if(bg == eol) {
             // Reset styles and colors.
             printf("\033[0m");
