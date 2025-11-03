@@ -1,5 +1,5 @@
 # ***pix*** - ***PIX***els
-Terminal graphics using ANSI escape sequences and extended ASCII.
+Text-based terminal graphics using ANSI escape sequences and extended ASCII. 
 - Easy to use (library only has six functions)
   + [```pix_t* pix_Create(size_t lines, size_t columns)```](#pix_t-pix_createsize_t-lines-size_t-columns)
   + [```void pix_Destroy(pix_t *p)```](#void-pix_destroypix_t-p)
