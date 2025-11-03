@@ -2,7 +2,7 @@
 Terminal graphics using ANSI Escape Sequences and extended ASCII.
 ```
 int main() {
-    pix_t *p = pix_Create(48, 128); // (lines, columns)
+    pix_t *p = pix_Create(48, 128); // (48 lines, 128 columns) e.g. 96p 128x96 
     unsigned char *bm = pix_Bitmap(p);
     for(int i = 0; i < pix_Rows(p) * pix_Columns(p); i++) {
         // random pixel color
