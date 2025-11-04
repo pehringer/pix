@@ -1,6 +1,4 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
+#include "pix.h"
 
 /*
 
@@ -32,18 +30,19 @@ struct pix_t {
     unsigned char *end;
 };
 
-typedef struct pix_t pix_t;
+const size_t ROWS_PER_LINE = 2;
+const size_t SIZEOF_PIXEL = 3;
 
 pix_t* pix_Create(size_t lines, size_t columns) {
-    pix_t *p = malloc(sizeof(pix_t) + (lines * 2) * (columns * 3));
+    pix_t *p = malloc(sizeof(pix_t) + (lines * ROWS_PER_LINE) * (columns * SIZEOF_PIXEL));
     if(p == 0) {
         return 0;
     }
-    p->rows = lines * 2;
+    p->rows = lines * ROWS_PER_LINE;
     p->columns = columns;
     p->begin = (unsigned char*) (p + 1);
-    p->end = p->begin + (lines * 2) * (columns * 3);
-    memset(p->begin, 0, (lines * 2) * (columns * 3));
+    p->end = p->begin + (lines * ROWS_PER_LINE) * (columns * SIZEOF_PIXEL);
+    memset(p->begin, 0, (lines * ROWS_PER_LINE) * (columns * SIZEOF_PIXEL));
     return p;
 }
 
@@ -67,8 +66,8 @@ void pix_Display(pix_t *p) {
     // Move to the start of the current line.
     printf("\r");
     unsigned char *fg = p->begin;
-    unsigned char *bg = fg + p->columns * 3;
-    unsigned char *eol = bg + p->columns * 3;
+    unsigned char *bg = fg + p->columns * SIZEOF_PIXEL;
+    unsigned char *eol = bg + p->columns * SIZEOF_PIXEL;
     while(fg < p->end) {
         // Set foreground color.
     	printf("\033[38;2;%d;%d;%dm", fg[0], fg[1], fg[2]);
@@ -76,30 +75,16 @@ void pix_Display(pix_t *p) {
     	printf("\033[48;2;%d;%d;%dm", bg[0], bg[1], bg[2]);
         // Print upper half block.
         printf("\u2580");
-        fg += 3;
-        bg += 3;
+        fg += SIZEOF_PIXEL;
+        bg += SIZEOF_PIXEL;
         if(bg == eol) {
             // Reset styles and colors.
             printf("\033[0m");
             // Move to the start of the next line.
             printf("\n");
             fg = eol;
-            bg = fg + p->columns * 3;
-            eol = bg + p->columns * 3;
+            bg = fg + p->columns * SIZEOF_PIXEL;
+            eol = bg + p->columns * SIZEOF_PIXEL;
         }
     }
-}
-
-int main() {
-    pix_t *p = pix_Create(48, 128); // (48 lines, 128 columns) e.g. 96p 128x96
-    unsigned char *bm = pix_Bitmap(p);
-    for(int i = 0; i < pix_Rows(p) * pix_Columns(p); i++) {
-    	// random pixel color
-        bm[0] = rand() % 256; // red
-        bm[1] = rand() % 256; // green
-        bm[2] = rand() % 256; // blue
-        bm += 3;
-    }
-    pix_Display(p);
-    pix_Destroy(p);
 }
