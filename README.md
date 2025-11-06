@@ -1,4 +1,4 @@
-N# ***pix*** - ***PIX***els
+# ***pix*** - ***PIX***els
 Text-based terminal graphics using ANSI escape sequences and extended ASCII. 
 - Easy to use (library only has six functions)
   + [```pix_t* pix_Create(size_t lines, size_t columns)```](#pix_t-pix_createsize_t-lines-size_t-columns)
@@ -7,7 +7,7 @@ Text-based terminal graphics using ANSI escape sequences and extended ASCII.
   + [```size_t pix_Columns(pix_t *p)```](#size_t-pix_columnspix_t-p)
   + [```unsigned char* pix_Bitmap(pix_t *p)```](#unsigned-char-pix_bitmappix_t-p)
   + [```void pix_Display(pix_t *p)```](#void-pix_displaypix_t-p)
-- Lightweight (less than 75 lines of source code)
+- Lightweight (less than 100 lines of source code)
 - Portable (only uses the C standard library)
   + ```stdio.h```
   + ```stdlib.h```
@@ -46,7 +46,7 @@ rm ./random96p.bin
 # Library Functions
 ---
 ### ```pix_t* pix_Create(size_t lines, size_t columns)```
-Returns the allocated pixels for the specified number of terminal lines and columns.
+Returns allocated pixels with the specified number of terminal lines and columns.
 Returns null if the allocation failed.
 - ```lines``` number of terminal lines.
 - ```columns``` number of terminal columns.
